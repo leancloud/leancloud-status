@@ -1,0 +1,359 @@
+@import (inline) "app.lite-icon.css";
+
+// Common elements
+@link-color: #2c97e8;
+@text-color: #000;
+@bg-color: #fff;
+
+body {
+  color: @text-color;
+  background: @bg-color;
+  padding: 40px 0;
+  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "Lantinghei SC", STHeiti, "Microsoft Yahei", "WenQuanYi Micro Hei", Arial, Verdana, sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: normal;
+  margin: 30px 0 50px;
+
+  span {
+    color: fade(@text-color, 30%);
+    transition: all .4s ease;
+  }
+}
+
+p {
+  line-height: 1.7;
+}
+
+h2 {
+  font-size: 16px;
+  color: #999;
+}
+
+a {
+  color: @text-color;
+  font-weight: 500;
+  transition: all .1s ease;
+
+  &:hover,
+  &:focus {
+    color: @link-color;
+  }
+}
+
+hr {
+  border-top-color: @text-color;
+  opacity: .06;
+  margin: 40px 0;
+}
+
+@media (min-width: 768px) {
+
+  .container {
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 500px) {
+
+  .col-xs-6 {
+    width: 100%;
+    float: left;
+  }
+}
+
+@media (max-width: 240px) {
+
+  .col-xs-6 {
+    width: 100%;
+  }
+}
+
+// Custom elements
+@status-default-color: #2c97e8;
+@status-up-color: #1fc21f;
+@status-down-color: #ee1d3e;
+@status-partial-color: #ffa300;
+
+.status-block {
+  margin: 16px 0;
+
+  @icon-size: 60px;
+  @icon-size-lg: 64px;
+  .icon {
+    font-size: @icon-size-lg;
+    float: left;
+  }
+
+  .status-title {
+    font-size: 20px;
+    margin-left: (@icon-size-lg + 20px);
+    margin-bottom: 4px;
+  }
+
+  .status-meta {
+    margin-left: (@icon-size-lg + 20px);
+  }
+
+  .timestamp {
+    font-size: 14px;
+    opacity: .4;
+    text-transform: lowercase;
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+    transition: height .4s ease;
+
+    &.on {
+      height: 2em;
+    }
+  }
+
+  .label {
+    color: @text-color;
+    background: transparent;
+    border: 1px solid;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all .2s ease;
+    opacity: .2;
+  }
+
+  &.loaded .label {
+    opacity: 1;
+  }
+
+  &.up .label {
+    color: @status-up-color;
+  }
+
+  &.down .label {
+    color: @status-down-color;
+  }
+
+  &.timeout .label {
+    color: @text-color;
+  }
+}
+
+.timeout-warning {
+  display: none;
+}
+
+.rss-link {
+  display: inline-block;
+  margin: 4px 0;
+  margin-right: 10px;
+  line-height: 1;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+
+  .icon {
+    font-size: 16px;
+    vertical-align: -2px;
+  }
+}
+
+.rss-update {
+  padding: 0;
+  margin: 0;
+  margin-top: 30px;
+  display: none;
+  transition: opacity .4s ease;
+
+  // translucent mask when reloading for new posts
+  &.loading {
+    opacity: .2;
+  }
+
+  li {
+    display: block;
+    list-style: none;
+    margin-bottom: 3em;
+
+    // hold visibility for posts before the whole RSS recheck is finished
+    &.new {
+      display: none;
+    }
+
+    .title {
+      font-size: 130%;
+      margin-top: 6px;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .category {
+      font-size: 12px;
+      text-transform: uppercase;
+      padding: 1px 8px;
+      border-radius: 3px;
+      border: 1px solid;
+      vertical-align: middle;
+      font-weight: bold;
+      display: inline-block;
+
+      &--maintenance {
+        background: fade(#ffab3b, 10%);
+        border-color: fade(#ffab3b, 10%);
+        color: #ffab3b;
+      }
+
+      &--failure {
+        background: fade(#ff3b3b, 10%);;
+        border-color: fade(#ff3b3b, 15%);;
+        color: #ff3b3b;
+      }
+    }
+
+    .date {
+      opacity: .5;
+      margin-bottom: 6px;
+      float: right;
+    }
+
+    .content {
+      line-height: 1.7;
+    }
+  }
+}
+
+.height-wrap {
+  transition: height 2s ease;
+  overflow: hidden;
+}
+
+// Loading spinner
+@keyframes load-placeholder {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@placeholder-size: 16px;
+
+.load-placeholder-wrap,
+.load-placeholder {
+  display: inline-block;
+  width: @placeholder-size;
+  height: @placeholder-size;
+  transition: opacity .2s ease;
+  animation-name: load-placeholder;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.load-placeholder-wrap {
+  opacity: 0;
+  vertical-align: top;
+  animation-duration: 1.5s;
+  animation-play-state: paused;
+  animation-direction: reverse;
+  pointer-events: none;
+
+  &.on {
+    opacity: 1;
+  }
+
+  &.slow {
+    animation-play-state: running;
+  }
+}
+
+.load-placeholder {
+  border: 2px solid #bbb;
+  border-right-color: transparent;
+  border-radius: (@placeholder-size / 2);
+  overflow: hidden;
+  text-indent: -99999px;
+  animation-duration: 1s;
+}
+
+// Progress bar
+@keyframes progress { 100% { width: 100%; } }
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 0%;
+  height: 2px;
+  padding: 0;
+  margin: 0;
+  background: #eee;
+  z-index: 100;
+  transition: all .6s ease;
+
+  &.loaded {
+    animation: progress 30s linear infinite;
+  }
+}
+
+// Status: Up
+.status-up {
+
+  h1 span,
+  a:hover,
+  a:focus {
+    color: @status-up-color;
+  }
+
+  .progress {
+    background: @status-up-color;
+  }
+}
+
+// Status: Down
+.status-down {
+
+  h1 span,
+  a:hover,
+  a:focus {
+    color: @status-down-color;
+  }
+
+  .progress {
+    background: @status-down-color;
+  }
+}
+
+// Status: Partial Up
+.status-partial {
+
+  h1 span,
+  a:hover,
+  a:focus {
+    color: @status-partial-color;
+  }
+
+  .progress {
+    background: @status-partial-color;
+  }
+}
+
+#status-feeds {
+  .type {
+    font-weight: bold;
+  }
+
+  .date {
+    opacity: .5;
+  }
+
+  &:empty+hr {
+    display: none;
+  }
+}
