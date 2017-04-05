@@ -6,3 +6,4 @@ app.css
 *.map
 env.sh
 public
+stats.html

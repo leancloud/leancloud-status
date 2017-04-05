@@ -78,7 +78,12 @@ hr {
 @status-default-color: #2c97e8;
 @status-up-color: #1fc21f;
 @status-down-color: #ee1d3e;
+@status-warning-color: #eea236;
 @status-partial-color: #ffa300;
+
+#status-root {
+  margin-top: 2em;
+}
 
 .status-block {
   margin: 16px 0;
@@ -104,14 +109,10 @@ hr {
     font-size: 14px;
     opacity: .4;
     text-transform: lowercase;
-    height: 0;
+    height: 2em;
     margin: 0;
     overflow: hidden;
     transition: height .4s ease;
-
-    &.on {
-      height: 2em;
-    }
   }
 
   .label {
@@ -138,6 +139,10 @@ hr {
 
   &.down .label {
     color: @status-down-color;
+  }
+
+  &.warning .label {
+    color: @status-warning-color;
   }
 
   &.timeout .label {
