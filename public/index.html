@@ -13,12 +13,6 @@
 <div class="container">
   <h1 class="font-logo">LeanCloud <span>Status</span></h1>
 
-  <div class="row timeout-warning">
-    <div class="col-sm-12">
-      <p>Error connecting to Status API, it doesn't mean that our service is down, please change your ISP and try again later. 本地网络超时，这可能并不一定代表我们的服务器出了问题，请尝试更换 ISP 或稍后再试。</p>
-    </div>
-  </div>
-
   <div class="row">
     <ul class="nav nav-tabs nodes">
       <li role="presentation" class="active"><a href="#" data-target='cn-n1'>主节点</a></li>
@@ -28,38 +22,9 @@
   </div>
 
   <div id="status-root" class="row">
-
-  </div>
-
-  <hr>
-
-  <div class="row">
     <div class="col-sm-12">
-      <p>我们每隔 5 分钟会去检测 LeanCloud 提供的各项服务是否正常运转，您可以从本页面获取这些信息。也可以通过 RSS 订阅服务的健康状态。本页面会每 30 秒自动刷新。</p>
-      <a class="rss-link" href="https://leancloud.cn/node/rss/data"><i class="icon icon-rss"></i> Storage</a>
-      <a class="rss-link" href="https://leancloud.cn/node/rss/rtm2"><i class="icon icon-rss"></i> RTM</a>
-      <a class="rss-link" href="https://leancloud.cn/node/rss/push"><i class="icon icon-rss"></i> Push</a>
-      <a class="rss-link" href="https://leancloud.cn/node/rss/stats"><i class="icon icon-rss"></i> Analytics</a>
-      <a class="rss-link" href="https://leancloud.cn/node/rss/code"><i class="icon icon-rss"></i> LeanEngine</a>
-      <a class="rss-link" href="https://leancloud.cn/node/rss/site"><i class="icon icon-rss"></i> Website</a>
-      <a class="rss-link" href="https://leancloud.cn/node/rss/support"><i class="icon icon-rss"></i> Support System</a>
+      <p>正在从第三方存储服务拉取健康状态，无法加载并不一定代表 LeanCloud 存在故障，请检查本地网络状况</p>
     </div>
-    <!-- .col-sm-6 -->
-  </div>
-  <!-- .row -->
-
-  <hr>
-
-  <h2>
-    Service Status Updates
-    <span id="load-placeholder-wrap" class="load-placeholder-wrap">
-      <span class="load-placeholder">Loading&hellip;</span>
-    </span>
-    <span id="error-message" class="error-message"></span>
-  </h2>
-
-  <div class="height-wrap" style="height: 0;">
-    <ul id="rss-update" class="rss-update"></ul>
   </div>
 
   <hr>
