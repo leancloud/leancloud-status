@@ -1,0 +1,38 @@
+<!doctype html>
+
+<title>LeanCloud 服务健康状况</title>
+
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache,no-store">
+
+<link rel="stylesheet" href="app.css">
+<script src="admin.bundled.js"></script>
+
+<div class="container" style="max-width: none;">
+  <h1 class="font-logo">LeanCloud <span>Status</span></h1>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-sm-12">
+      <button id="create-button" class="btn">添加事件</button>
+      <button id="save-button" class="btn">保存</button>
+      <p>type: <code>success</code>、<code>warning</code>、<code>error</code>、<code>timeout</code>；inProgress: 表示该消息会一直显示在状态页，直到出现一条新的 success 消息；添加消息后需要保存才能生效。</p>
+      <p></p>
+    </div>
+    <div class="col-sm-12">
+      <textarea id="status-events-editor" rows="50" style="width: 100%;"></textarea>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-sm-12">
+      <footer class="custom-footer">
+        <p>&copy; <a href="http://leancloud.cn/" class="font-logo">LeanCloud</a>, all rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+</div>

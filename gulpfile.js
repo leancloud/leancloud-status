@@ -23,23 +23,31 @@ gulp.task('scripts', () => {
 });
 
 gulp.task('scripts-bundled', ['scripts'], () => {
-  return gulp.src('public/app.js')
+  return webpackTask('app');
+});
+
+gulp.task('admin-bundled', ['scripts'], () => {
+  return webpackTask('admin');
+});
+
+gulp.task('watch', ['default'], () => {
+  gulp.watch(['frontend/styles/*.less'], ['styles']);
+  gulp.watch(['frontend/*.js'], ['scripts-bundled', 'admin-bundled']);
+});
+
+gulp.task('default', ['styles', 'scripts-bundled', 'admin-bundled']);
+
+function webpackTask(name) {
+  return gulp.src(`public/${name}.js`)
     .pipe(webpack({
       plugins: [
         new Visualizer(),
         new UglifyJsPlugin({compress: {warnings: false}})
       ],
       output: {
-        filename: 'app.bundled.js'
+        filename: `${name}.bundled.js`
       }
     }))
     .pipe(uglify())
     .pipe(gulp.dest('public'));
-});
-
-gulp.task('watch', ['default'], () => {
-  gulp.watch(['frontend/*.less'], ['styles']);
-  gulp.watch(['frontend/*.js'], ['scripts-bundled']);
-});
-
-gulp.task('default', ['styles', 'scripts-bundled']);
+}

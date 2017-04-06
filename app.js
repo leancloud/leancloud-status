@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var AV = require('leanengine');
+var basicAuth = require('basic-auth');
 
 var app = express();
 
@@ -19,10 +20,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-require('./lib/worker');
+const worker = require('./lib/worker');
 
 app.get('/', function(req, res) {
   res.json({ currentTime: new Date() });
+});
+
+app.put('/events.json', function(req, res) {
+  const credentials = basicAuth(req);
+
+  if (credentials && process.env.USERNAME && process.env.PASSWORD &&
+    credentials.name === process.env.USERNAME && credentials.pass === process.env.PASSWORD
+  ) {
+    worker.objectStorage.uploadStatusEvents(req.body).then( () => {
+      res.sendStatus(201);
+    }).catch( err => {
+      res.status(500).json({
+        error: err.message
+      });
+    });
+  } else {
+    res.header('WWW-Authenticate', 'Basic realm="status.leancloud.cn"');
+    res.sendStatus(401);
+  }
 });
 
 app.use(function(req, res, next) {
@@ -52,9 +72,8 @@ app.use(function(err, req, res, next) {
     // 如果是开发环境，则将异常堆栈输出到页面，方便开发调试
     error = err;
   }
-  res.render('error', {
-    message: err.message,
-    error: error
+  res.json({
+    error: err.message
   });
 });
 
