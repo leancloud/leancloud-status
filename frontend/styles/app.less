@@ -190,16 +190,23 @@ hr {
 }
 
 #status-events {
-  .type {
-    font-weight: bold;
+  margin-bottom: 1em;
+
+  .success {
+    color: @status-up-color;
+  }
+  .warning {
+    color: @status-warning-color;
+  }
+  .error {
+    color: @status-down-color;
+  }
+  .timeout {
+    color: @text-color;
   }
 
   .date {
     opacity: .5;
-  }
-
-  &:empty+hr {
-    display: none;
   }
 }
 

@@ -3,11 +3,13 @@ import 'babel-polyfill';
 
 import favicon from './favicon';
 
+const BUCKET_PREFIX = 'https://leancloud-status.s3.amazonaws.com';
 const SERVICES = ['LeanStorage', 'LeanMessage', 'LeanPush', 'LeanAnalytics', 'LeanEngine', 'Website', 'Support'];
 const NODES = ['cn-n1', 'us-w1', 'cn-e1'];
 const CHECK_POINTS = ['cn-n1', 'us-w1', 'cn-e1'];
 const DOWN_THRESHOLD = 0.6;
 const AUTO_REFRESH = 30 * 1000;
+const CURRENT_EVENT = 24 * 3600 * 1000;
 
 const SERVICE_INFO = {
   LeanStorage: {
@@ -61,17 +63,26 @@ const STATUS_MAPPING = {
 
 const state = {
   currentNode: 'cn-n1',
-  status: []
+  status: [],
+  events: []
 };
 
 $( () => {
   function refresh() {
-    loadStatusFromObjectStorage().then( result => {
+    loadLatestStatus().then( result => {
       state.status = mergeStatusCheckPoints(result)
-      renderToDOM();
+      $('#status-root').html(render());
     }).catch( err => {
       console.error(err);
-      renderToDOM();
+      $('#status-root').html(render());
+    });
+
+    localStatusEvents().then( ({events}) => {
+      state.events = events;
+      $('#status-events').html(renderStatusEvents());
+    }).catch( err => {
+      console.error(err);
+      $('#status-events').html(renderStatusEvents());
     });
   }
 
@@ -83,20 +94,20 @@ $( () => {
     state.currentNode = $(this).data('target');
     $('.nav-tabs.nodes li.active').toggleClass('active');
     $(this).parent('li').toggleClass('active');
-    renderToDOM();
+    $('#status-root').html(render());
   });
 });
 
-function loadStatusFromObjectStorage() {
+function loadLatestStatus() {
   return Promise.all(CHECK_POINTS.map( nodeName => {
-    return $.getJSON(`https://leancloud-status.s3.amazonaws.com/${nodeName}-latest.json`).then( result => {
+    return $.getJSON(`${BUCKET_PREFIX}/${nodeName}-latest.json`).then( result => {
       return Object.assign(result, {nodeName});
     });
   }));
 }
 
-function renderToDOM() {
-  $('#status-root').html(render());
+function localStatusEvents() {
+  return $.getJSON(`${BUCKET_PREFIX}/events.json`);
 }
 
 function render() {
@@ -126,6 +137,37 @@ function render() {
       </div>
     `;
   }).join('');
+}
+
+function renderStatusEvents() {
+  const currentEvents = [];
+  var inProgress = false;
+
+  for (let event of state.events) {
+    if (Date.now() - new Date(event.time).getTime() > CURRENT_EVENT && !inProgress) {
+      break;
+    }
+
+    if (event.inProgress) {
+      inProgress = true;
+    } else if (event.type === 'success') {
+      inProgress = false;
+    }
+
+    currentEvents.push(event);
+  }
+
+  return currentEvents.map( ({content, type, time}) => {
+    return `
+      <p class='col-sm-12'>
+        <span class='${type}'>${content}</span> <br /> <span class='date'>${time}</span>
+      </p>
+    `;
+  }).join('');
+}
+
+function renderEventHistory() {
+
 }
 
 function mergeStatusCheckPoints(checkPointsResult) {
