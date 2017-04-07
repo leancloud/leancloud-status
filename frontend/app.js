@@ -10,6 +10,7 @@ const CHECK_POINTS = ['cn-n1', 'us-w1', 'cn-e1'];
 const DOWN_THRESHOLD = 0.6;
 const AUTO_REFRESH = 30 * 1000;
 const CURRENT_EVENT = 24 * 3600 * 1000;
+const EVENT_HISTORY_DAYS = 7;
 
 const SERVICE_INFO = {
   LeanStorage: {
@@ -80,9 +81,11 @@ $( () => {
     localStatusEvents().then( ({events}) => {
       state.events = events;
       $('#status-events').html(renderStatusEvents());
+      $('#event-history').html(renderEventHistory());
     }).catch( err => {
       console.error(err);
       $('#status-events').html(renderStatusEvents());
+      $('#event-history').html(renderEventHistory());
     });
   }
 
@@ -131,7 +134,7 @@ function render() {
           <div class='status-title font-logo' title='${SERVICE_INFO[serviceName].name}'>${serviceName}</div>
           <div class='status-meta' id='data-status'>
             <p class='label' title='${statusTitle}'>${STATUS_MAPPING[statusItem.status].text}</p>
-            <p class='timestamp' title='${timestampTitle}'>${minuteAgo(new Date(statusItem.lastSuccess))}</p>
+            <p class='timestamp' title='${timestampTitle}'>${minuteAgo(new Date(statusItem.lastCheck))}</p>
           </div>
         </div>
       </div>
@@ -160,14 +163,44 @@ function renderStatusEvents() {
   return currentEvents.map( ({content, type, time}) => {
     return `
       <p class='col-sm-12'>
-        <span class='${type}'>${content}</span> <br /> <span class='date'>${time}</span>
+        <span class='${type}'>${content}</span> <br /> <span class='date'>${new Date(time).toLocaleString()}</span>
       </p>
     `;
   }).join('');
 }
 
 function renderEventHistory() {
+  var html = '';
 
+  for (let daysAgo = 1; daysAgo <= EVENT_HISTORY_DAYS; daysAgo++) {
+
+    const day = new Date(Date.now() - daysAgo * 24 * 3600 * 1000).toLocaleDateString();
+
+    const events = state.events.filter( ({time}) => {
+      return new Date(time).toLocaleDateString() === day;
+    });
+
+    if (events.length === 0) {
+      events.push({
+        type: 'success',
+        content: '当日无事件'
+      });
+    }
+
+    html += `
+      <div class='col-sm-12'>
+        <div class='history-date'>${day}</div>
+        ${events.map( ({content, type, time}) => {
+          return `<p>
+            <span class='date'>${time ? new Date(time).toLocaleTimeString() : ''}</span>
+            <span class=${type}>${content}</span>
+          <p>`;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  return html;
 }
 
 function mergeStatusCheckPoints(checkPointsResult) {
@@ -200,7 +233,7 @@ function mergeStatusCheckPoints(checkPointsResult) {
         error: failedResult[0] ? failedResult[0].error : null,
         upRatio: upRatio,
         checkResult: checkResult,
-        lastSuccess: successResult[0].time,
+        lastCheck: checkResult[0].time,
         status: ( () => {
           if (upRatio === 1) {
             return 'success';

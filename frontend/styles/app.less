@@ -11,7 +11,6 @@ body {
   padding: 40px 0;
   font-size: 15px;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "Lantinghei SC", STHeiti, "Microsoft Yahei", "WenQuanYi Micro Hei", Arial, Verdana, sans-serif;
-  font-weight: 300;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -189,17 +188,17 @@ hr {
   }
 }
 
-#status-events {
+#status-events, #event-history {
   margin-bottom: 1em;
 
   .success {
-    color: @status-up-color;
+    color: desaturate(@status-up-color, 30%);
   }
   .warning {
-    color: @status-warning-color;
+    color: desaturate(@status-warning-color, 30%);
   }
   .error {
-    color: @status-down-color;
+    color: desaturate(@status-down-color, 30%);
   }
   .timeout {
     color: @text-color;
@@ -207,6 +206,17 @@ hr {
 
   .date {
     opacity: .5;
+  }
+}
+
+#event-history {
+  > div {
+    margin-bottom: 0.4em;
+  }
+
+  .history-date {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 0.2em;
   }
 }
 
