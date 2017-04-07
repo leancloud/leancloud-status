@@ -32,10 +32,11 @@ $( () => {
       statusEvents.events.unshift({
         type: 'warning',
         content: 'TODO ...',
+        inProgress: false,
         time: new Date()
       });
 
-      $('#status-events-editor').html(JSON.stringify(statusEvents, null, ' '));
+      $('#status-events-editor').html(JSON.stringify(statusEvents, null, '  '));
     } catch (err) {
       alert(err.message);
     }
