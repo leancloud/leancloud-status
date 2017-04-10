@@ -1,6 +1,5 @@
 @import (inline) "app.lite-icon.css";
 
-// Common elements
 @link-color: #2c97e8;
 @text-color: #000;
 @bg-color: #fff;
@@ -70,7 +69,6 @@ hr {
   }
 }
 
-// Custom elements
 @status-default-color: #2c97e8;
 @status-up-color: #1fc21f;
 @status-down-color: #ee1d3e;
@@ -146,45 +144,27 @@ hr {
   }
 }
 
-// Status: Up
 .status-up {
-
   h1 span,
   a:hover,
   a:focus {
     color: @status-up-color;
   }
-
-  .progress {
-    background: @status-up-color;
-  }
 }
 
-// Status: Down
 .status-down {
-
   h1 span,
   a:hover,
   a:focus {
     color: @status-down-color;
   }
-
-  .progress {
-    background: @status-down-color;
-  }
 }
 
-// Status: Partial Up
 .status-partial {
-
   h1 span,
   a:hover,
   a:focus {
     color: @status-partial-color;
-  }
-
-  .progress {
-    background: @status-partial-color;
   }
 }
 
@@ -217,6 +197,52 @@ hr {
   .history-date {
     border-bottom: 1px solid #eee;
     margin-bottom: 0.2em;
+  }
+}
+
+.charts {
+  display: table;
+
+  .chart {
+    display: table-row;
+
+    .chart-label {
+      display: table-cell;
+      padding: 1em 3em;
+      width: 1px;
+
+      h3 {
+        font-size: 16px;
+        margin: 0;
+      }
+
+      .number {
+        font-size: 48px;
+      }
+    }
+
+    .chart-bar {
+      display: table-cell;
+      vertical-align: middle;
+      white-space: nowrap;
+
+      div {
+        display: inline-block;
+        min-height: 1.5em;
+      }
+
+      .up {
+        background-color: @status-up-color;
+      }
+
+      .warning {
+        background-color: @status-warning-color;
+      }
+
+      .down {
+        background-color: @status-down-color;
+      }
+    }
   }
 }
 

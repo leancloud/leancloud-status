@@ -65,13 +65,15 @@ const STATUS_MAPPING = {
 const state = {
   currentNode: 'cn-n1',
   status: [],
+  charts: {},
   events: []
 };
 
 $( () => {
   function refresh() {
     loadLatestStatus().then( result => {
-      state.status = mergeStatusCheckPoints(result)
+      state.status = mergeStatusCheckPoints(result);
+      state.charts = mergeChartCheckPoints(result);
       $('#status-root').html(render());
     }).catch( err => {
       console.error(err);
@@ -114,6 +116,8 @@ function localStatusEvents() {
 }
 
 function render() {
+  const chartData = state.charts[state.currentNode];
+
   return SERVICES.map( serviceName => {
     const statusItem = state.status.find( ({nodeName, service}) => {
       return nodeName === state.currentNode && service === serviceName;
@@ -139,25 +143,43 @@ function render() {
         </div>
       </div>
     `;
-  }).join('');
+  }).join('') + `
+    <div class='col-sm-12 charts'>
+      ${SERVICES.map( service => {
+        return `
+          <div class='chart'>
+            <div class='chart-label'>
+              <h3>${SERVICE_INFO[service].name}</h3>
+              <span class='number'>${chartData[service].uptime.toFixed(2)}%</span>
+            </div>
+            <div class='chart-bar'>
+              ${chartData[service].map( item => {
+                return `<div style='width: ${item.period.toFixed(1)}%;' class='${STATUS_MAPPING[item.status].class}'
+                             title='${item.time.toLocaleString()} - ${item.timeEnd.toLocaleString()} ${item.status}'/>`;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
 }
 
 function renderStatusEvents() {
-  const currentEvents = [];
-  var inProgress = false;
+  var currentEvents = [];
+  var inProgressEvents = [];
 
-  for (let event of state.events) {
-    if (Date.now() - new Date(event.time).getTime() > CURRENT_EVENT && !inProgress) {
-      break;
-    }
+  for (let i = state.events.length - 1; i >= 0; i--) {
+    let event = state.events[i];
 
-    if (event.inProgress) {
-      inProgress = true;
+    if (Date.now() - new Date(event.time).getTime() < CURRENT_EVENT) {
+      currentEvents = inProgressEvents.concat(currentEvents);
+      currentEvents.unshift(event);
+    } else if (event.inProgress) {
+      inProgressEvents.unshift(event);
     } else if (event.type === 'success') {
-      inProgress = false;
+      inProgressEvents = [];
     }
-
-    currentEvents.push(event);
   }
 
   return currentEvents.map( ({content, type, time}) => {
@@ -262,6 +284,106 @@ function mergeStatusCheckPoints(checkPointsResult) {
   }
 
   updateFavicon(overallStatus);
+
+  return result;
+}
+
+function mergeChartCheckPoints(checkPointsResult) {
+  const flattenServiceChart = (nodeName, service) => {
+    const serviceChartItems = [];
+
+    checkPointsResult.forEach( checkPoints => {
+      checkPoints.charts[nodeName][service].forEach( serviceChartItem => {
+        serviceChartItems.push(Object.assign(serviceChartItem, {
+          nodeName: checkPoints.nodeName,
+          time: new Date(serviceChartItem.time)
+        }));
+      });
+    });
+
+    return serviceChartItems;
+  };
+
+  const mergeServiceChartItems = (serviceChartItems) => {
+    const result = [];
+    const lastStatus = {};
+
+    const currentStatus = () => {
+      var upCount = 0;
+      var count = 0;
+
+      for (let nodeName in lastStatus) {
+        count++;
+
+        if (lastStatus[nodeName] === 'success') {
+          upCount++;
+        }
+      }
+
+      const upRatio = upCount / count;
+
+      if (upRatio === 1) {
+        return 'success';
+      } else if ((1 - upRatio) < DOWN_THRESHOLD) {
+        return 'warning';
+      } else {
+        return 'error';
+      }
+    };
+
+    serviceChartItems.sort( (a, b) => {
+      return a.time - b.time;
+    });
+
+    serviceChartItems.forEach( item => {
+      if (lastStatus[item.nodeName] != item.status) {
+        lastStatus[item.nodeName] = item.status;
+
+        const status = currentStatus();
+
+        if (result.status !== status) {
+          result.status = status;
+          result.push({
+            time: item.time,
+            status: currentStatus()
+          });
+        }
+      }
+    });
+
+    const totalDuration = Date.now() - result[0].time.getTime();
+
+    for (let i = 0; i < result.length; i++) {
+      const nextItem = result[i + 1];
+      const duration = (nextItem ? nextItem.time.getTime() : Date.now()) - result[i].time.getTime();
+      result[i].timeEnd = nextItem ? nextItem.time : new Date;
+      result[i].period = (duration / totalDuration) * 100;
+    }
+
+    return result;
+  };
+
+  const result = {};
+
+  const countUpTime = (chartItems) => {
+    return chartItems.filter( chartItem => {
+      return chartItem.status !== 'error';
+    }).map( ({period}) => {
+      return period;
+    }).reduce( (a, b) => {
+      return a + b;
+    }, 0);
+  };
+
+  for (let nodeName of NODES) {
+    for (let service of SERVICES) {
+      result[nodeName] = result[nodeName] || {};
+      const serviceChartItems = flattenServiceChart(nodeName, service);
+      result[nodeName][service] = mergeServiceChartItems(serviceChartItems);
+
+      result[nodeName][service].uptime = countUpTime(result[nodeName][service]);
+    }
+  };
 
   return result;
 }
