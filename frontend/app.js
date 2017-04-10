@@ -64,6 +64,7 @@ const STATUS_MAPPING = {
 
 const state = {
   currentNode: 'cn-n1',
+  collapseCharts: true,
   status: [],
   charts: {},
   events: []
@@ -99,6 +100,12 @@ $( () => {
     state.currentNode = $(this).data('target');
     $('.nav-tabs.nodes li.active').toggleClass('active');
     $(this).parent('li').toggleClass('active');
+    $('#status-root').html(render());
+  });
+
+  $('#status-root').on('click', '.extend-charts a', function(event) {
+    event.preventDefault();
+    state.collapseCharts = false;
     $('#status-root').html(render());
   });
 });
@@ -144,7 +151,7 @@ function render() {
       </div>
     `;
   }).join('') + `
-    <div class='col-sm-12 charts'>
+    <div class='col-xs-12 charts ${state.collapseCharts ? 'collapse' : ''}'>
       ${SERVICES.map( service => {
         return `
           <div class='chart'>
@@ -153,14 +160,21 @@ function render() {
               <span class='number'>${chartData[service].uptime.toFixed(2)}%</span>
             </div>
             <div class='chart-bar'>
+              <div>
+                <span class='timestamp'>${chartData[service][0].time.toLocaleString()}</span>
+                <span class='timestamp pull-right'>now</span>
+              </div>
               ${chartData[service].map( item => {
-                return `<div style='width: ${item.period.toFixed(1)}%;' class='${STATUS_MAPPING[item.status].class}'
+                return `<div style='width: ${item.period.toFixed(1)}%;' class='bar-block ${STATUS_MAPPING[item.status].class}'
                              title='${item.time.toLocaleString()} - ${item.timeEnd.toLocaleString()} ${item.status}'/>`;
               }).join('')}
             </div>
           </div>
         `;
       }).join('')}
+    </div>
+    <div class='col-xs-12 text-center extend-charts'>
+      <a href='#'>更多历史图表</a>
     </div>
   `;
 }

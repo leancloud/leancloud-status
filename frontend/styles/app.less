@@ -25,12 +25,7 @@ h1 {
 }
 
 p {
-  line-height: 1.7;
-}
-
-h2 {
-  font-size: 16px;
-  color: #999;
+  line-height: 1.5;
 }
 
 a {
@@ -47,7 +42,7 @@ a {
 hr {
   border-top-color: @text-color;
   opacity: .06;
-  margin: 40px 0;
+  margin: 2em 0;
 }
 
 @media (min-width: 768px) {
@@ -75,6 +70,16 @@ hr {
 @status-warning-color: #eea236;
 @status-partial-color: #ffa300;
 
+.timestamp {
+  font-size: 14px;
+  opacity: .4;
+  text-transform: lowercase;
+  height: 2em;
+  margin: 0;
+  overflow: hidden;
+  transition: height .4s ease;
+}
+
 #status-root {
   margin-top: 2em;
 }
@@ -97,16 +102,6 @@ hr {
 
   .status-meta {
     margin-left: (@icon-size-lg + 20px);
-  }
-
-  .timestamp {
-    font-size: 14px;
-    opacity: .4;
-    text-transform: lowercase;
-    height: 2em;
-    margin: 0;
-    overflow: hidden;
-    transition: height .4s ease;
   }
 
   .label {
@@ -208,7 +203,8 @@ hr {
 
     .chart-label {
       display: table-cell;
-      padding: 1em 3em;
+      padding-right: 2em;
+      padding-bottom: 1em;
       width: 1px;
 
       h3 {
@@ -226,7 +222,7 @@ hr {
       vertical-align: middle;
       white-space: nowrap;
 
-      div {
+      .bar-block {
         display: inline-block;
         min-height: 1.5em;
       }
@@ -246,6 +242,24 @@ hr {
   }
 }
 
+.charts.collapse .chart {
+  display: none;
+}
+
+.charts.collapse .chart:first-child {
+  display: table-row;
+}
+
+.extend-charts {
+  display: none;
+}
+
+.charts.collapse + .extend-charts {
+  display: block;
+}
+
 #status-events-editor {
-  font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+  width: 100%;
+  min-height: 1000px;
+  font-family: Consolas, Monaco, 'Courier New', monospace;
 }
