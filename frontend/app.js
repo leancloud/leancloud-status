@@ -70,6 +70,8 @@ const state = {
   events: []
 };
 
+$.ajaxSetup({ cache: false });
+
 $( () => {
   function refresh() {
     loadLatestStatus().then( result => {

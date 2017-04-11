@@ -3,6 +3,8 @@ import 'babel-polyfill';
 
 const BUCKET_PREFIX = 'https://leancloud-status.s3.amazonaws.com';
 
+$.ajaxSetup({ cache: false });
+
 $( () => {
   $.getJSON(`${BUCKET_PREFIX}/events.json`).then( statusEvents => {
     $('#status-events-editor').html(JSON.stringify(statusEvents, null, '  '));
