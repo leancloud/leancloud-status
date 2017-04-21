@@ -19,7 +19,8 @@ const SERVICE_INFO = {
   },
   LeanMessage: {
     name: '实时消息',
-    icon: 'chat'
+    icon: 'chat',
+    ignore: ['cn-e1']
   },
   LeanPush: {
     name: '消息推送',
@@ -39,7 +40,8 @@ const SERVICE_INFO = {
   },
   Support: {
     name: '技术支持',
-    icon: 'checked'
+    icon: 'checked',
+    ignore: ['us-w1', 'cn-e1']
   }
 };
 
@@ -128,6 +130,10 @@ function render() {
   const chartData = state.charts[state.currentNode];
 
   return SERVICES.map( serviceName => {
+    if (SERVICE_INFO[serviceName].ignore && SERVICE_INFO[serviceName].ignore.indexOf(state.currentNode) !== -1) {
+      return '';
+    }
+
     const statusItem = state.status.find( ({nodeName, service}) => {
       return nodeName === state.currentNode && service === serviceName;
     });
@@ -155,6 +161,10 @@ function render() {
   }).join('') + `
     <div class='col-xs-12 charts ${state.collapseCharts ? 'collapse' : ''}'>
       ${SERVICES.map( service => {
+        if (SERVICE_INFO[service].ignore && SERVICE_INFO[service].ignore.indexOf(state.currentNode) !== -1) {
+          return '';
+        }
+
         return `
           <div class='chart'>
             <div class='chart-label'>
@@ -248,7 +258,7 @@ function mergeStatusCheckPoints(checkPointsResult) {
   for (let nodeName of NODES) {
     for (let service of SERVICES) {
       let checkResult = checkPointsResult.map( checkPoint => {
-        return Object.assign(checkPoint.status[nodeName][service], {nodeName: checkPoint.nodeName});
+        return Object.assign(checkPoint.status[nodeName][service] || {}, {nodeName: checkPoint.nodeName});
       });
 
       checkResult.sort( (a, b) => {
@@ -292,7 +302,7 @@ function mergeStatusCheckPoints(checkPointsResult) {
   }
 
   for ({status} of result) {
-    if (['warning', 'timeout'].includes(status) && overallStatus !== 'error'){
+    if (status === 'warning' && overallStatus !== 'error'){
       overallStatus = 'warning';
     } else if (status === 'error') {
       overallStatus = 'error';
