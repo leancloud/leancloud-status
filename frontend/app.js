@@ -2,8 +2,8 @@ import $ from 'jquery';
 import 'babel-polyfill';
 
 import favicon from './favicon';
+import {BUCKET_PREFIX} from './settings';
 
-const BUCKET_PREFIX = 'https://leancloud-status.s3.amazonaws.com';
 const SERVICES = ['LeanStorage', 'LeanMessage', 'LeanPush', 'LeanAnalytics', 'LeanEngine', 'Website', 'Support'];
 const NODES = ['cn-n1', 'us-w1', 'cn-e1'];
 const CHECK_POINTS = ['cn-n1', 'us-w1', 'cn-e1'];
@@ -378,7 +378,7 @@ function mergeChartCheckPoints(checkPointsResult) {
           result.status = status;
           result.push({
             time: item.time,
-            status: currentStatus()
+            status: status
           });
         }
       }

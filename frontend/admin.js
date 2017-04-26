@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import 'babel-polyfill';
 
-const BUCKET_PREFIX = 'https://leancloud-status.s3.amazonaws.com';
+import {BUCKET_PREFIX} from './settings';
 
 $.ajaxSetup({ cache: false });
 
