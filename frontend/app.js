@@ -97,7 +97,12 @@ $( () => {
   }
 
   refresh();
-  setInterval(refresh, AUTO_REFRESH);
+
+  setInterval( () => {
+    if (localStorage.getItem('refresh') !== 'false') {
+      refresh();
+    }
+  }, AUTO_REFRESH);
 
   $('.nav-tabs.nodes a').click(function(event) {
     event.preventDefault();
@@ -176,10 +181,12 @@ function render() {
                 <span class='timestamp'>${chartData[service][0].time.toLocaleString()}</span>
                 <span class='timestamp pull-right'>now</span>
               </div>
-              ${chartData[service].map( item => {
-                return `<div style='width: ${item.period.toFixed(1)}%;' class='bar-block ${STATUS_MAPPING[item.status].class}'
-                             title='${item.time.toLocaleString()} - ${item.timeEnd.toLocaleString()} ${item.status}'/>`;
-              }).join('')}
+              <div class='chart-flex'>
+                ${chartData[service].map( item => {
+                  return `<div style='flex: ${item.duration}' class='bar-block ${STATUS_MAPPING[item.status].class}'
+                               title='${item.time.toLocaleString()} - ${item.timeEnd.toLocaleString()} ${item.status}'/>`;
+                }).join('')}
+              </div>
             </div>
           </div>
         `;
@@ -281,7 +288,7 @@ function mergeStatusCheckPoints(checkPointsResult) {
         error: failedResult[0] ? failedResult[0].error : null,
         upRatio: upRatio,
         checkResult: checkResult,
-        lastCheck: checkResult[0].time,
+        lastCheck: checkResult[checkResult.length - 1].time,
         status: ( () => {
           if (upRatio === 1) {
             return 'success';
@@ -383,6 +390,7 @@ function mergeChartCheckPoints(checkPointsResult) {
       const nextItem = result[i + 1];
       const duration = (nextItem ? nextItem.time.getTime() : Date.now()) - result[i].time.getTime();
       result[i].timeEnd = nextItem ? nextItem.time : new Date;
+      result[i].duration = duration;
       result[i].period = (duration / totalDuration) * 100;
     }
 
