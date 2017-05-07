@@ -174,7 +174,7 @@ function render() {
           <div class='chart'>
             <div class='chart-label'>
               <h3>${SERVICE_INFO[service].name}</h3>
-              <span class='number'>${chartData[service].uptime.toFixed(2)}%</span>
+              <span class='number font-logo'>${chartData[service].uptime.toFixed(2)}%</span>
             </div>
             <div class='chart-bar'>
               <div>
