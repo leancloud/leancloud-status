@@ -196,15 +196,15 @@ hr {
 }
 
 .charts {
-  display: table;
 
   .chart {
-    display: table-row;
+    display: flex;
+    align-items: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
 
     .chart-label {
-      display: table-cell;
-      padding-right: 2em;
-      padding-bottom: 1em;
+      flex: 1;
       width: 1px;
 
       h3 {
@@ -218,8 +218,7 @@ hr {
     }
 
     .chart-bar {
-      display: table-cell;
-      vertical-align: middle;
+      flex: 2;
       white-space: nowrap;
 
       .chart-flex {
