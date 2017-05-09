@@ -66,7 +66,6 @@ const STATUS_MAPPING = {
 
 const state = {
   currentNode: 'cn-n1',
-  collapseCharts: true,
   status: [],
   charts: {},
   events: []
@@ -109,12 +108,6 @@ $( () => {
     state.currentNode = $(this).data('target');
     $('.nav-tabs.nodes li.active').toggleClass('active');
     $(this).parent('li').toggleClass('active');
-    $('#status-root').html(render());
-  });
-
-  $('#status-root').on('click', '.extend-charts a', function(event) {
-    event.preventDefault();
-    state.collapseCharts = false;
     $('#status-root').html(render());
   });
 });
@@ -164,7 +157,7 @@ function render() {
       </div>
     `;
   }).join('') + `
-    <div class='col-xs-12 charts ${state.collapseCharts ? 'collapse' : ''}'>
+    <div class='col-xs-12 charts'>
       ${SERVICES.map( service => {
         if (SERVICE_INFO[service].ignore && SERVICE_INFO[service].ignore.indexOf(state.currentNode) !== -1) {
           return '';
@@ -191,9 +184,6 @@ function render() {
           </div>
         `;
       }).join('')}
-    </div>
-    <div class='col-xs-12 text-center extend-charts'>
-      <a href='#'>其他服务图表</a>
     </div>
   `;
 }
