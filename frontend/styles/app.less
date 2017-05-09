@@ -199,7 +199,7 @@ hr {
 
   .chart {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     padding-top: 1em;
     padding-bottom: 1em;
 
@@ -213,7 +213,10 @@ hr {
       }
 
       .number {
+        display: block;
         font-size: 48px;
+        line-height: 1;
+        margin-top: 5px;
       }
     }
 
@@ -228,15 +231,15 @@ hr {
 
       .bar-block {
         display: inline-block;
-        min-height: 1.5em;
+        min-height: 3em;
       }
 
       .up {
-        background-color: @status-up-color;
+        background-color: #e9f9ed;
       }
 
       .warning {
-        background-color: @status-warning-color;
+        background-color: #ffb655;
       }
 
       .down {
