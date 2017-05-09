@@ -158,6 +158,8 @@ function render() {
     `;
   }).join('') + `
     <div class='col-xs-12 charts'>
+      <hr>
+
       ${SERVICES.map( service => {
         if (SERVICE_INFO[service].ignore && SERVICE_INFO[service].ignore.indexOf(state.currentNode) !== -1) {
           return '';
