@@ -184,7 +184,7 @@ function render() {
               <div class='chart-flex'>
                 ${chartData[service].map( item => {
                   return `<div style='flex: ${item.duration}' class='bar-block ${STATUS_MAPPING[item.status].class}'
-                               title='${item.time.toLocaleString()} - ${item.timeEnd.toLocaleString()} ${item.status}'/>`;
+                               title='${item.time.toLocaleString()} - ${item.timeEnd.toLocaleString()} ${item.status} ${item.error ? item.error : ''}'/>`;
                 }).join('')}
               </div>
             </div>
@@ -193,7 +193,7 @@ function render() {
       }).join('')}
     </div>
     <div class='col-xs-12 text-center extend-charts'>
-      <a href='#'>更多历史图表</a>
+      <a href='#'>其他服务图表</a>
     </div>
   `;
 }
@@ -378,6 +378,7 @@ function mergeChartCheckPoints(checkPointsResult) {
           result.status = status;
           result.push({
             time: item.time,
+            error: item.error,
             status: status
           });
         }
@@ -392,6 +393,15 @@ function mergeChartCheckPoints(checkPointsResult) {
       result[i].timeEnd = nextItem ? nextItem.time : new Date;
       result[i].duration = duration;
       result[i].period = (duration / totalDuration) * 100;
+
+      if (!localStorage.getItem('allWarning')) {
+        const lastStatus = result[i - 1] && result[i - 1].status;
+        const nextStatus = result[i + 1] && result[i + 1].status;
+
+        if (result[i].status === 'warning' && lastStatus === 'success' && nextStatus === 'success') {
+          result[i].status = 'success';
+        }
+      }
     }
 
     return result;

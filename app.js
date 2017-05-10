@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var AV = require('leanengine');
 var basicAuth = require('basic-auth');
 
+require('./cloud');
+
 var app = express();
 
 app.use(express.static('public'));
