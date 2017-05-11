@@ -182,13 +182,25 @@ hr {
 }
 
 #event-history {
-  > div {
-    margin-bottom: 0.4em;
+
+  .history-item {
+    margin-bottom: 2em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .history-date {
-    border-bottom: 1px solid #eee;
-    margin-bottom: 0.2em;
+    margin-bottom: .2em;
+    font-size: 120%;
+    opacity: .6;
+  }
+
+  .history-content {
+    padding: 1em;
+    background: #f9f9f9;
+    border-radius: 4px;
   }
 }
 

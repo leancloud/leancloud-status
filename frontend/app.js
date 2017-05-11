@@ -240,13 +240,13 @@ function renderEventHistory() {
     }
 
     html += `
-      <div class='col-sm-12'>
+      <div class='history-item'>
         <div class='history-date'>${day}</div>
         ${events.map( ({content, type, time}) => {
-          return `<p>
+          return `<div class='history-content'>
             <span class='date'>${time ? new Date(time).toLocaleTimeString() : ''}</span>
             <span class=${type}>${content}</span>
-          <p>`;
+          </div>`;
         }).join('')}
       </div>
     `;
