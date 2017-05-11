@@ -124,6 +124,11 @@ function localStatusEvents() {
   return $.getJSON(`${BUCKET_PREFIX}/events.json`);
 }
 
+function toFixedSmart(n, d) {
+  if (!d) return n.toFixed(d);
+  return n.toFixed(d).replace(/\.?0+$/, '');
+}
+
 function render() {
   const chartData = state.charts[state.currentNode];
 
@@ -169,7 +174,7 @@ function render() {
           <div class='chart'>
             <div class='chart-label'>
               <h3>${SERVICE_INFO[service].name}</h3>
-              <span class='number font-logo'>${chartData[service].uptime.toFixed(2)}%</span>
+              <span class='number font-logo'>${toFixedSmart(chartData[service].uptime, 2)}%</span>
             </div>
             <div class='chart-bar'>
               <div>
