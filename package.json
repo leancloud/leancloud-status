@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "publishs3": "aws s3 sync --region cn-north-1 . s3://leancloud-status"
+    "publishs3": "aws s3 sync --region cn-north-1 public s3://leancloud-status"
   },
   "engines": {
     "node": "6.x"
