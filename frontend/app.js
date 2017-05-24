@@ -395,7 +395,7 @@ function mergeChartCheckPoints(checkPointsResult) {
         const lastStatus = result[i - 1] && result[i - 1].status;
         const nextStatus = result[i + 1] && result[i + 1].status;
 
-        if (result[i].status === 'warning' && lastStatus === 'success' && nextStatus === 'success') {
+        if (result[i].status === 'warning' && lastStatus === 'success' && nextStatus === 'success' && result[i].duration <= 180000) {
           result[i].status = 'success';
         }
       }
