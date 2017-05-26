@@ -248,14 +248,29 @@ hr {
 
       .up {
         background-color: #e9f9ed;
+
+        &:hover,
+        &:focus {
+          background-color: darken(#e9f9ed, 10%);
+        }
       }
 
       .warning {
         background-color: #f6c37f;
+
+        &:hover,
+        &:focus {
+          background-color: darken(#f6c37f, 10%);
+        }
       }
 
       .down {
         background-color: @status-down-color;
+
+        &:hover,
+        &:focus {
+          background-color: darken(@status-down-color, 10%);
+        }
       }
     }
   }
