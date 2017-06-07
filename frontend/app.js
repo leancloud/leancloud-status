@@ -161,7 +161,7 @@ function render() {
         </div>
       </div>
     `;
-  }).join('') + `
+  }).join('') + (localStorage.getItem('historyChart') ? `
     <div class='col-xs-12 charts'>
       <hr>
 
@@ -192,7 +192,7 @@ function render() {
         `;
       }).join('')}
     </div>
-  `;
+  ` : '');
 }
 
 function renderStatusEvents() {
