@@ -12,6 +12,11 @@ const AUTO_REFRESH = 30 * 1000;
 const CURRENT_EVENT = 24 * 3600 * 1000;
 const EVENT_HISTORY_DAYS = 7;
 
+const SHOW_HISTORY_CHART = localStorage.getItem('historyChart') === null ? true : localStorage.getItem('historyChart');
+const SHOW_WARNING = localStorage.getItem('showWarning') === null ? false : localStorage.getItem('showWarning');
+const SHOW_ALL_WARNING = localStorage.getItem('allWarning') === null ? false : localStorage.getItem('allWarning');
+const ENABLE_AUTO_REFRESH = localStorage.getItem('refresh') === 'false' ? false : true;
+
 const SERVICE_INFO = {
   LeanStorage: {
     name: '数据存储',
@@ -98,7 +103,7 @@ $( () => {
   refresh();
 
   setInterval( () => {
-    if (localStorage.getItem('refresh') !== 'false') {
+    if (ENABLE_AUTO_REFRESH) {
       refresh();
     }
   }, AUTO_REFRESH);
@@ -142,7 +147,7 @@ function render() {
     });
 
     const statusTitle = statusItem.checkResult.map( ({nodeName, error, latency}) => {
-      return `${nodeName}: ${latency}ms, ${error ? error : 'success'}`;
+      return `${nodeName}: ${latency}ms, ${quoteattr(error ? error : 'success')}`;
     }).join('\n');
 
     const timestampTitle = statusItem.checkResult.map( ({nodeName, time}) => {
@@ -161,7 +166,7 @@ function render() {
         </div>
       </div>
     `;
-  }).join('') + (localStorage.getItem('historyChart') ? `
+  }).join('') + (SHOW_HISTORY_CHART ? `
     <div class='col-xs-12 charts'>
       <hr>
 
@@ -174,17 +179,16 @@ function render() {
           <div class='chart'>
             <div class='chart-label'>
               <h3>${SERVICE_INFO[service].name}</h3>
-              <span class='number font-logo'>${toFixedSmart(chartData[service].uptime, 2)}%</span>
             </div>
             <div class='chart-bar'>
               <div>
-                <span class='timestamp'>${chartData[service][0].time.toLocaleString()}</span>
+                <span class='timestamp pull-left'>24 hours ago</span>
                 <span class='timestamp pull-right'>now</span>
               </div>
               <div class='chart-flex'>
                 ${chartData[service].map( item => {
                   return `<div style='flex: ${item.duration}' class='bar-block ${STATUS_MAPPING[item.status].class}'
-                               title='${item.time.toLocaleString()} - ${item.timeEnd.toLocaleString()} ${item.status} ${item.error ? item.error : ''}'/>`;
+                               title='${quoteattr(`${item.time.toLocaleString()} - ${item.timeEnd.toLocaleString()} ${item.status} ${item.error ? item.error : ''}`)}'/>`;
                 }).join('')}
               </div>
             </div>
@@ -355,7 +359,11 @@ function mergeChartCheckPoints(checkPointsResult) {
       if (upRatio === 1) {
         return 'success';
       } else if ((1 - upRatio) < DOWN_THRESHOLD) {
-        return 'warning';
+        if (SHOW_WARNING) {
+          return 'warning';
+        } else {
+          return 'success';
+        }
       } else {
         return 'error';
       }
@@ -391,7 +399,7 @@ function mergeChartCheckPoints(checkPointsResult) {
       result[i].duration = duration;
       result[i].period = (duration / totalDuration) * 100;
 
-      if (!localStorage.getItem('allWarning')) {
+      if (!SHOW_ALL_WARNING) {
         const lastStatus = result[i - 1] && result[i - 1].status;
         const nextStatus = result[i + 1] && result[i + 1].status;
 
@@ -446,4 +454,14 @@ function minuteAgo(time) {
   const milliseconds = Date.now() - time.getTime();
   const minutes = Math.floor(milliseconds / 1000 / 60);
   return minutes === 0 ? '刚刚' : `${Math.floor(milliseconds / 1000 / 60)} 分钟前`;
+}
+
+function quoteattr(s) {
+  return s.replace(/&/g, '&amp;')
+    .replace(/'/g, '&apos;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\r\n/g, '&#13;')
+    .replace(/[\r\n]/g, '&#13;');
 }
