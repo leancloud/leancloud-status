@@ -246,12 +246,14 @@ function renderEventHistory() {
     html += `
       <div class='history-item'>
         <div class='history-date'>${day}</div>
-        ${events.map( ({content, type, time}) => {
-          return `<div class='history-content'>
-            <span class='date'>${time ? new Date(time).toLocaleTimeString() : ''}</span>
-            <span class=${type}>${content}</span>
-          </div>`;
-        }).join('')}
+        <div class='history-content-wrap'>
+          ${events.map( ({content, type, time}) => {
+            return `<div class='history-content'>
+              <div class='date'>${time ? new Date(time).toLocaleTimeString() : ''}</div>
+              <div class=${type}>${content}</div>
+            </div>`;
+          }).join('')}
+        </div>
       </div>
     `;
   }
