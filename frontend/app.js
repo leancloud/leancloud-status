@@ -12,7 +12,7 @@ const AUTO_REFRESH = 30 * 1000;
 const CURRENT_EVENT = 24 * 3600 * 1000;
 const EVENT_HISTORY_DAYS = 7;
 
-const SHOW_HISTORY_CHART = localStorage.getItem('historyChart') === null ? true : localStorage.getItem('historyChart');
+const SHOW_HISTORY_CHART = localStorage.getItem('historyChart') === null ? false : localStorage.getItem('historyChart');
 const SHOW_WARNING = localStorage.getItem('showWarning') === null ? false : localStorage.getItem('showWarning');
 const SHOW_ALL_WARNING = localStorage.getItem('allWarning') === null ? false : localStorage.getItem('allWarning');
 const ENABLE_AUTO_REFRESH = localStorage.getItem('refresh') === 'false' ? false : true;
