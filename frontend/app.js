@@ -296,6 +296,8 @@ function mergeStatusCheckPoints(checkPointsResult) {
           if (upRatio === 1) {
             return 'success';
           } else if ((1 - upRatio) < DOWN_THRESHOLD) {
+            return 'success';
+
             if (failedResult.every( ({timeout}) => {
               return timeout;
             })) {
