@@ -7,14 +7,16 @@ import {BUCKET_PREFIX} from './settings';
 const SERVICES = ['LeanStorage', 'LeanMessage', 'LeanPush', 'LeanAnalytics', 'LeanEngine', 'Website', 'Support'];
 const NODES = ['cn-n1', 'us-w1', 'cn-e1'];
 const CHECK_POINTS = ['cn-n1', 'us-w1', 'cn-e1'];
-const DOWN_THRESHOLD = 0.6;
 const AUTO_REFRESH = 30 * 1000;
 const CURRENT_EVENT = 24 * 3600 * 1000;
 const EVENT_HISTORY_DAYS = 7;
 
-const SHOW_HISTORY_CHART = localStorage.getItem('historyChart') === null ? false : localStorage.getItem('historyChart');
-const SHOW_WARNING = localStorage.getItem('showWarning') === null ? false : localStorage.getItem('showWarning');
-const SHOW_ALL_WARNING = localStorage.getItem('allWarning') === null ? false : localStorage.getItem('allWarning');
+const WARNING_THRESHOLD = 0.4;
+const DOWN_THRESHOLD = 0.4;
+
+const IGNORE_WARNING_SHORTER_THAN = 120000;
+
+const SHOW_HISTORY_CHART = localStorage.getItem('historyChart') === null ? true : localStorage.getItem('historyChart');
 const ENABLE_AUTO_REFRESH = localStorage.getItem('refresh') === 'false' ? false : true;
 
 const SERVICE_INFO = {
@@ -360,14 +362,10 @@ function mergeChartCheckPoints(checkPointsResult) {
 
       const upRatio = upCount / count;
 
-      if (upRatio === 1) {
+      if (upRatio > WARNING_THRESHOLD) {
         return 'success';
-      } else if ((1 - upRatio) < DOWN_THRESHOLD) {
-        if (SHOW_WARNING) {
-          return 'warning';
-        } else {
-          return 'success';
-        }
+      } else if (upRatio > DOWN_THRESHOLD) {
+        return 'warning';
       } else {
         return 'error';
       }
@@ -403,11 +401,11 @@ function mergeChartCheckPoints(checkPointsResult) {
       result[i].duration = duration;
       result[i].period = (duration / totalDuration) * 100;
 
-      if (!SHOW_ALL_WARNING) {
+      if (!IGNORE_WARNING_SHORTER_THAN) {
         const lastStatus = result[i - 1] && result[i - 1].status;
         const nextStatus = result[i + 1] && result[i + 1].status;
 
-        if (result[i].status === 'warning' && lastStatus === 'success' && nextStatus === 'success' && result[i].duration <= 180000) {
+        if (result[i].status === 'warning' && (!lastStatus || lastStatus === 'success') && nextStatus === 'success' && result[i].duration <= IGNORE_WARNING_SHORTER_THAN) {
           result[i].status = 'success';
         }
       }
