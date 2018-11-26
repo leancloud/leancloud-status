@@ -1,0 +1,512 @@
+{
+  "events": [
+    {
+      "type": "success",
+      "content": "据我们监控 DNSPod 的解析故障已经结束，域名已经可以正常解析。",
+      "inProgress": false,
+      "time": "2018-11-09T15:01:31.670Z"
+    },
+    {
+      "type": "warning",
+      "content": "受 DNSPod 解析故障影响，云引擎访问外部资源可能会出现 DNS 查询超时的现象（进而导致请求堆积，出现并发超限）；同时工单、文件存储服务在部分地区不可用，我们正在继续监控故障的影响范围。",
+      "inProgress": true,
+      "time": "2018-11-09T14:28:23.131Z"
+    },
+    {
+      "type": "success",
+      "content": "网络故障已排除，服务已恢复",
+      "inProgress": false,
+      "time": "2018-11-07T06:47:15.679Z"
+    },
+    {
+      "type": "error",
+      "content": "我们正在解决美国节点控制台和部分服务无法访问的问题 ...",
+      "inProgress": true,
+      "time": "2018-11-07T06:31:27.802Z"
+    },
+    {
+      "type": "success",
+      "content": "目前美国节点的服务已经恢复，我们还在继续观察。",
+      "inProgress": false,
+      "time": "2018-10-29T13:03:32.841Z"
+    },
+    {
+      "type": "warning",
+      "content": "我们还在处理一个导致云存储服务不稳定的问题 ...",
+      "inProgress": true,
+      "time": "2018-10-29T11:18:50.135Z"
+    },
+    {
+      "type": "success",
+      "content": "目前美国节点的主要服务已经恢复，我们还在继续观察。",
+      "inProgress": false,
+      "time": "2018-10-29T11:10:21.187Z"
+    },
+    {
+      "type": "warning",
+      "content": "目前我们还在继续测试美国节点新集群的服务，在测试完成后会将流量切换到新集群，恢复服务。",
+      "inProgress": true,
+      "time": "2018-10-29T10:07:44.261Z"
+    },
+    {
+      "type": "success",
+      "content": "华北节点的线路故障已恢复",
+      "inProgress": false,
+      "time": "2018-10-29T09:05:00.000Z"
+    },
+    {
+      "type": "warning",
+      "content": "华北节点的用户您好，我们的底层服务商检测到从 16:33 起，全国电信线路有 66% 左右丢包；移动线路有 3% 左右丢包，已上报运营商修复。",
+      "inProgress": true,
+      "time": "2018-10-29T08:49:00.000Z"
+    },
+    {
+      "type": "warning",
+      "content": "美国节点的用户您好，我们计划在北京时间 10 月 29 日 13:00 - 18:00（美国东部时间 0:00 - 5:00）对美国节点进行机房整体迁移。预计本次迁移操作大概需要 5 小时，其中有 2 小时左右系统完全不可访问，3 小时左右系统会被锁定在只读状态（读取操作不受影响，写入和修改请求会返回失败）。我们会尽量降低迁移过程对您业务的实际影响，如有新的进展或变化还会在这里公告。",
+      "inProgress": true,
+      "time": "2018-10-29T05:00:00.000Z"
+    },
+    {
+      "type": "timeout",
+      "content": "云引擎的用户您好，我们计划在 10 月 25 日 0 点至 2 点对云引擎的构建组件进行维护，期间云引擎无法构建新的版本，但不影响其他功能和回滚已构建的版本。",
+      "inProgress": false,
+      "time": "2018-10-24T16:00:00.000Z"
+    },
+    {
+      "type": "success",
+      "content": "华北节点云引擎已于 11:30 全部恢复，我们还在继续观察。",
+      "inProgress": false,
+      "time": "2018-09-17T03:30:24.661Z"
+    },
+    {
+      "type": "warning",
+      "content": "华北节点云引擎自 10:10 开始因负荷过高，出现请求缓慢、超时的情况。",
+      "inProgress": true,
+      "time": "2018-09-17T02:20:24.661Z"
+    },
+    {
+      "type": "warning",
+      "content": "华北节点云引擎自 21:50 开始因负荷过高，出现请求缓慢、超时的情况，已在 22:30 恢复。",
+      "inProgress": false,
+      "time": "2018-09-10T14:30:24.661Z"
+    },
+    {
+      "type": "success",
+      "content": "我们确认由于机房外网 IP 通讯存在异常，导致部分请求失败。已于 10:49 恢复。",
+      "inProgress": false,
+      "time": "2018-07-08T03:20:24.661Z"
+    },
+    {
+      "type": "error",
+      "content": "华北节点服务出现间歇性访问超时，我们正在调查中。",
+      "inProgress": true,
+      "time": "2018-07-08T02:37:05.935Z"
+    },
+    {
+      "type": "success",
+      "content": "短信服务已恢复。",
+      "inProgress": false,
+      "time": "2018-06-22T13:43:06.875Z"
+    },
+    {
+      "type": "error",
+      "content": "华北节点与华东节点的短信服务存在异常，我们正在恢复中。",
+      "inProgress": true,
+      "time": "2018-06-22T13:09:43.963Z"
+    },
+    {
+      "type": "success",
+      "content": "各项服务已经恢复，我们仍然在持续观察中。",
+      "inProgress": false,
+      "time": "2018-06-09T15:17:21.216Z"
+    },
+    {
+      "type": "warning",
+      "content": "存储服务继续出现部分异常，我们正在处理",
+      "inProgress": true,
+      "time": "2018-06-09T14:49:52.358Z"
+    },
+    {
+      "type": "success",
+      "content": "各项服务均已恢复，我们会继续观察。",
+      "inProgress": false,
+      "time": "2018-06-09T13:46:13.266Z"
+    },
+    {
+      "type": "warning",
+      "content": "存储服务出现故障，我们正在调查和处理",
+      "inProgress": false,
+      "time": "2018-06-09T13:32:39.196Z"
+    },
+    {
+      "type": "warning",
+      "content": "我们发现部分 Node 6.x 应用在部署时会出现 npm ERR! registry error parsing json 这个错误，目前推测是 npm 与我们所使用的 npm registry 之间的问题，暂时可以在 package.json 中将 Node 版本（engines.node）改为 8.x 来绕过，我们还在继续关注这个问题。",
+      "inProgress": true,
+      "time": "2018-06-08T17:11:47.669Z"
+    },
+    {
+      "type": "success",
+      "content": "实时通讯服务已恢复，我们还在密切关注",
+      "inProgress": false,
+      "time": "2018-05-30T03:38:12.623Z"
+    },
+    {
+      "type": "warning",
+      "content": "部分实时通讯请求受到影响（返回 502 错误），我们正在调查处理",
+      "inProgress": true,
+      "time": "2018-05-30T03:25:03.170Z"
+    },
+    {
+      "type": "resolve",
+      "content": "临时维护已完成，数据存储功能不再受到影响。",
+      "inProgress": false,
+      "time": "2018-05-28T03:50:39.702Z"
+    },
+    {
+      "type": "success",
+      "content": "目前国内节点云引擎对 NPM 的访问已恢复，但部署可能会比较慢。",
+      "inProgress": false,
+      "time": "2018-05-24T05:58:17.915Z"
+    },
+    {
+      "type": "warning",
+      "content": "国内节点云引擎访问 NPM 网络不畅，可能导致 Node.js 应用部署失败，我们正在处理。",
+      "inProgress": true,
+      "time": "2018-05-24T04:36:08.342Z"
+    },
+    {
+      "type": "resolve",
+      "content": "维护于 01:05 完毕，后继检查没有发现问题。",
+      "inProgress": false,
+      "time": "2018-05-17T15:08:31.101Z"
+    },
+    {
+      "type": "warning",
+      "content": "因 gevent 1.3.0 版本中改动较大， 导致了使用了最新版本 gevent 的 Python 云引擎应用无法部署，暂时请把 requirements.txt 中 gevent 一行改为 gevent==1.2.2，我们接下来会尽快兼容新版本。",
+      "inProgress": true,
+      "time": "2018-05-12T15:33:34.459Z"
+    },
+    {
+      "type": "success",
+      "content": "\"华东节点统计服务后端升级已经完成，目前统计服务已经恢复正常。\"",
+      "inProgress": false,
+      "time": "2018-05-08T00:08:45.893Z"
+    },
+    {
+      "type": "success",
+      "content": "云引擎部署服务已基本恢复",
+      "inProgress": false,
+      "time": "2018-02-26T10:21:29.518Z"
+    },
+    {
+      "type": "warning",
+      "content": "云引擎部署服务出现了一些异常，会导致无法部署新版本，已在运行的线上服务不受影响",
+      "inProgress": false,
+      "time": "2018-02-26T08:51:33.675Z"
+    },
+    {
+      "type": "success",
+      "content": "服务现已全部稳定",
+      "inProgress": false,
+      "time": "2018-01-10T06:31:02.151Z"
+    },
+    {
+      "type": "success",
+      "content": "几分钟前华北节点内网连接出现不稳定的情况，已开始逐步恢复，数据存储可能存在轻微延时",
+      "inProgress": false,
+      "time": "2018-01-10T06:18:36.086Z"
+    },
+    {
+      "type": "success",
+      "content": "\"华北节点离线数据分析服务已经升级完成，现在可以正常使用。\"",
+      "inProgress": false,
+      "time": "2018-01-09T02:18:43.269Z"
+    },
+    {
+      "type": "success",
+      "content": "维护完毕",
+      "inProgress": false,
+      "time": "2017-12-29T07:30:52.689Z"
+    },
+    {
+      "type": "success",
+      "content": "华北节点文件服务已恢复。",
+      "inProgress": false,
+      "time": "2017-12-04T05:38:23.906Z"
+    },
+    {
+      "type": "warning",
+      "content": "因为底层服务商的问题，目前华北节点文件访问大面积出错，我们正在紧急联系解决。",
+      "inProgress": true,
+      "time": "2017-12-04T05:36:44.940Z"
+    },
+    {
+      "type": "warning",
+      "content": "请升级 SDK，iOS SDK 升级到 5.0.0+，Android 是 3.16.4+，JavaScript 是 3.0.0+，升级后将不再受影响",
+      "inProgress": false,
+      "time": "2017-10-18T08:33:14.056Z"
+    },
+    {
+      "type": "warning",
+      "content": "目前部分地区（主要是海外）访问 api.leancloud.cn 会因为 DNS 污染而失败，请升级到新版 SDK 或者联系运营商报障以解决此问题。",
+      "inProgress": false,
+      "time": "2017-10-18T07:54:09.450Z"
+    },
+    {
+      "type": "success",
+      "content": "已恢复。",
+      "inProgress": false,
+      "time": "2017-10-05T13:36:11.087Z"
+    },
+    {
+      "type": "warning",
+      "content": "中国区存储服务部分节点故障中，可能导致部分请求失败，正在调查处理。",
+      "inProgress": true,
+      "time": "2017-10-05T13:28:55.239Z"
+    },
+    {
+      "type": "success",
+      "content": "中国区云引擎网络问题已经修复。",
+      "inProgress": false,
+      "time": "2017-10-03T00:43:34.699Z"
+    },
+    {
+      "type": "warning",
+      "content": "中国区云引擎网络存在波动，可能导致部分请求失败，正在调查处理",
+      "inProgress": true,
+      "time": "2017-10-02T23:42:07.391Z"
+    },
+    {
+      "type": "success",
+      "content": "美国区云引擎部署已恢复",
+      "inProgress": false,
+      "time": "2017-09-21T05:29:47.045Z"
+    },
+    {
+      "type": "warning",
+      "content": "美国区云引擎部署存在一些故障，正在处理，不影响线上服务",
+      "inProgress": true,
+      "time": "2017-09-21T03:11:54.102Z"
+    },
+    {
+      "type": "success",
+      "content": "故障已解决, 中国华东节点控制台登录功能已恢复可用",
+      "inProgress": false,
+      "time": "2017-09-19T08:28:36.064Z"
+    },
+    {
+      "type": "timeout",
+      "content": "华北节点云引擎自 08-30 至 09-04 在对「已构建版本」的存储设施进行升级和扩容，不会影响线上服务，但若您在部署过程中遇到问题，请与我们联系。",
+      "inProgress": false,
+      "time": "2017-08-30T16:00:00.000Z"
+    },
+    {
+      "type": "success",
+      "content": "中国华北节点机房网络已恢复。",
+      "inProgress": false,
+      "time": "2017-08-29T16:28:55.549Z"
+    },
+    {
+      "type": "warning",
+      "content": "中国华北节点机房网络故障，目前电信用户可能无法正常访问，我们正在联系运营商处理。",
+      "inProgress": true,
+      "time": "2017-08-29T15:21:50.120Z"
+    },
+    {
+      "type": "success",
+      "content": "中国华北节点数据中心网络异常，已完全恢复",
+      "inProgress": false,
+      "time": "2017-08-28T05:02:52.837Z"
+    },
+    {
+      "type": "error",
+      "content": "中国华北节点数据中心网络异常，已处理, 陆续恢复中",
+      "inProgress": true,
+      "time": "2017-08-28T04:57:52.837Z"
+    },
+    {
+      "type": "error",
+      "content": "中国华北节点数据中心网络异常，确认了故障原因，我们正在修复",
+      "inProgress": true,
+      "time": "2017-08-28T04:53:18.837Z"
+    },
+    {
+      "type": "error",
+      "content": "中国华北节点数据中心网络异常，丢包和网络延迟不稳定，我们正在解决",
+      "inProgress": true,
+      "time": "2017-08-28T04:38:48.837Z"
+    },
+    {
+      "type": "success",
+      "content": "中国节点的存储服务已恢复，稍后会有故障报告",
+      "inProgress": false,
+      "time": "2017-08-16T08:33:34.709Z"
+    },
+    {
+      "type": "error",
+      "content": "中国节点存储服务存在异常，我们正在解决，可能影响控制台和涉及自增字段的云存储请求",
+      "inProgress": true,
+      "time": "2017-08-16T08:13:48.837Z"
+    },
+    {
+      "type": "warning",
+      "content": "公安部进行违法网站关停演练通知, 依据8月1日公安部召开的关于“翻墙软件、非法VPN”等相关内容的会议精神，公安部定于8月3日下午2点-4点将进行违法网站一键关停应急处置演练，届时根据公安部的指令可能要随时关停一些网站和 IP，待供应商接到通知后才能重新打开。在此期间, LeanCloud 各项服务可能会受到影响, 我们将尽量在 https://status.leancloud.cn 动态更新.",
+      "inProgress": false,
+      "time": "2017-08-03T04:23:33.531Z"
+    },
+    {
+      "type": "success",
+      "content": "文件存储供应商确认已全部恢复, 如果还有遇到问题, 请在论坛或工单反馈.",
+      "inProgress": false,
+      "time": "2017-07-25T03:48:13.951Z"
+    },
+    {
+      "type": "success",
+      "content": "中国节点的实时通信服务故障已经修复，我们对由此给您带来的影响表示诚挚道歉，故障详情将发布于官网博客。",
+      "inProgress": false,
+      "time": "2017-07-05T14:01:42.851Z"
+    },
+    {
+      "type": "error",
+      "content": "LeanCloud 中国节点的实时通信服务于 21:03 分左右发生了故障，导致部分应用的聊天功能出现请求超时。我们正在全力抢修并会及时报告进度。",
+      "inProgress": true,
+      "time": "2017-07-05T13:17:22.087Z"
+    },
+    {
+      "type": "success",
+      "content": "已恢复，主要影响到了控制台的登录",
+      "inProgress": false,
+      "time": "2017-06-21T08:46:33.763Z"
+    },
+    {
+      "type": "warning",
+      "content": "美国节点存在一些异常，我们正在调查处理",
+      "inProgress": true,
+      "time": "2017-06-21T08:33:30.305Z"
+    },
+    {
+      "type": "success",
+      "content": "服务已恢复",
+      "inProgress": false,
+      "time": "2017-06-14T09:01:07.479Z"
+    },
+    {
+      "type": "warning",
+      "content": "主要服务已经恢复，我们还在继续处理 LeanCache",
+      "inProgress": true,
+      "time": "2017-06-14T08:50:53.734Z"
+    },
+    {
+      "type": "error",
+      "content": "目前美国节点存在一些故障，我们正在解决",
+      "inProgress": true,
+      "time": "2017-06-14T08:32:14.051Z"
+    },
+    {
+      "type": "success",
+      "content": "实时通讯服务于 20:58 已开始陆续恢复，我们还在继续观察",
+      "inProgress": false,
+      "time": "2017-06-12T13:04:20.109Z"
+    },
+    {
+      "type": "error",
+      "content": "主节点实时通讯服务存在故障，影响历史消息读取、Conversation 相关操作，正在紧急处理",
+      "inProgress": true,
+      "time": "2017-06-12T12:54:47.967Z"
+    },
+    {
+      "type": "success",
+      "content": "云存储已全面恢复",
+      "inProgress": false,
+      "time": "2017-06-08T07:21:43.969Z"
+    },
+    {
+      "type": "warning",
+      "content": "云存储写入失败的情况已修复，但自增主键仍受到影响",
+      "inProgress": true,
+      "time": "2017-06-08T07:03:32.316Z"
+    },
+    {
+      "type": "warning",
+      "content": "主节点部分应用云存储写入存在失败的情况，我们正在处理",
+      "inProgress": true,
+      "time": "2017-06-08T06:54:16.501Z"
+    },
+    {
+      "type": "warning",
+      "content": "主节点 16:10 前后控制台主页出现了 404 Not Found 的情况，不影响存储等 API 服务，现已修复",
+      "inProgress": false,
+      "time": "2017-06-07T08:15:57.805Z"
+    },
+    {
+      "type": "warning",
+      "content": "中国节点实时通讯服务 15:24 - 15:39 消息存在延迟，现已恢复",
+      "inProgress": false,
+      "time": "2017-06-02T07:46:01.252Z"
+    },
+    {
+      "type": "warning",
+      "content": "美国节点云引擎自北京时间 11:00 起部分请求失败，已在 11:30 完全恢复",
+      "inProgress": false,
+      "time": "2017-05-24T06:27:05.222Z"
+    },
+    {
+      "type": "timeout",
+      "content": "中国节点下午 10 点起云引擎容器日志和部署日志存在十分钟左右的延迟，目前正在逐步恢复",
+      "inProgress": false,
+      "time": "2017-04-20T12:48:00.274Z"
+    },
+    {
+      "type": "timeout",
+      "content": "应用内搜索负载比较大，请求响应延迟有所增高，我们已经扩容，还在观察中",
+      "inProgress": false,
+      "time": "2017-04-17T06:26:12.735Z"
+    },
+    {
+      "type": "success",
+      "content": "中国节点「API 访问日志」和「实时消息日志」除今天外均已恢复",
+      "inProgress": false,
+      "time": "2017-04-17T04:10:00.944Z"
+    },
+    {
+      "type": "warning",
+      "content": "中国节点「应用内搜索」、「API 访问日志」和「实时消息日志」功能异常，正在处理",
+      "inProgress": true,
+      "time": "2017-04-17T03:54:00.386Z"
+    },
+    {
+      "type": "success",
+      "content": "云引擎已经稳定",
+      "time": "2017-04-09T06:03:47.411Z"
+    },
+    {
+      "type": "warning",
+      "content": "已切换云引擎入口 IP，请等待 DNS 生效",
+      "inProgress": true,
+      "time": "2017-04-09T04:00:47.411Z"
+    },
+    {
+      "type": "error",
+      "content": "中国区云引擎入口正在遭受 DDoS 攻击",
+      "inProgress": true,
+      "time": "2017-04-09T03:59:47.411Z"
+    },
+    {
+      "type": "success",
+      "content": "中国节点全部服务已恢复正常，详见 <a href='https://blog.leancloud.cn/5770/'>4 月 6 日 LeanCloud 中国节点因底层服务商的故障而引发部分服务中断 38 分钟的说明</a>",
+      "time": "2017-04-06T14:56:25.076Z"
+    },
+    {
+      "type": "error",
+      "content": "接底层服务提供商通知，22:11 部分网络设备异常，发生容灾切换，部分 IP 不可访问，正在紧急处理",
+      "inProgress": true,
+      "time": "2017-04-06T14:35:26.992Z"
+    },
+    {
+      "type": "error",
+      "content": "中国节点所在数据中心网络出现异常，正在处理",
+      "inProgress": true,
+      "time": "2017-04-06T14:27:10.759Z"
+    }
+  ]
+}
