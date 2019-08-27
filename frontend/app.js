@@ -4,7 +4,7 @@ import 'babel-polyfill';
 import favicon from './favicon';
 import {BUCKET_PREFIX} from './settings';
 
-const SERVICES = ['LeanStorage', 'LeanMessage', 'LeanPush', 'LeanAnalytics', 'LeanEngine', 'Website', 'Support'];
+const SERVICES = ['LeanStorage', 'LeanMessage', 'LeanEngine', 'Website', 'Support'];
 const NODES = ['cn-n1', 'us-w1', 'cn-e1'];
 const CHECK_POINTS = ['cn-n1', 'us-w1', 'cn-e1'];
 const AUTO_REFRESH = 30 * 1000;
@@ -28,14 +28,6 @@ const SERVICE_INFO = {
     name: '实时消息',
     icon: 'chat',
     ignore: ['cn-e1']
-  },
-  LeanPush: {
-    name: '消息推送',
-    icon: 'push'
-  },
-  LeanAnalytics: {
-    name: '应用统计',
-    icon: 'chart-alt'
   },
   LeanEngine: {
     name: '云引擎',
